@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import scrapy
 from scrapy.conf import settings
 
@@ -38,6 +40,7 @@ class QxbCrawl(scrapy.Spider):
 
     def parse_detail(self, response):
         print("detail crawl start======================================")
+        # 基本信息
         table = response.xpath('//table[@class="table table-bordered word-break"]')
         company_name = response.xpath('//span[@class="company-name-now"]/text()').extract_first()
         tds = table.xpath('.//td')
@@ -55,6 +58,7 @@ class QxbCrawl(scrapy.Spider):
                     base_info_value.append(td_text)
         base_info = dict(zip(base_info_key, base_info_value))
 
+        # 股东信息
         gd_key = []
         gd_info = []
         divs = response.xpath('//div[@id="info"]/div/div[@class="panel panel-default"]')
@@ -73,7 +77,7 @@ class QxbCrawl(scrapy.Spider):
                 if td_text is None:
                     ran = td.xpath('./a/span/text()').extract_first()
                     if ran is None:
-                        ran2 = td.xpath('./div/span/text()').extract_first()
+                        ran2 = td.xpath('./div/span//text()').extract()
                         gd_value.append(ran2)
                     else:
                         gd_value.append(ran)
@@ -82,8 +86,57 @@ class QxbCrawl(scrapy.Spider):
 
             gd_info.append(dict(zip(gd_key, gd_value)))
 
+        # 主要人员
+        main_person_key = []
+        main_person_value = []
+        main_person_info = {}
+        divs = response.xpath('//div[@id="info"]/div/div[@class="panel panel-default"]')
+        if len(divs) < 1:
+            return
+        lis = divs[1].xpath('./div[@class="panel-body"]/ul[@class="major-person-list clearfix"]/li')
+        for index, li in enumerate(lis):
+            person_key = li.xpath('./span[@class="job-title"]/text()').extract_first()
+            person_value = li.xpath(
+                './span[@class="links"]/a/span[@class="company-basic-info-name"]/text()').extract_first()
+            main_person_key.append(person_key + '_' + str(index))
+            main_person_value.append(person_value)
+
+        main_person_info = dict(zip(main_person_key, main_person_value))
+
+        # 分支机构
+        org_key = []
+        org_info = []
+        divs = response.xpath('//div[@id="info"]/div/div[@class="panel panel-default"]')
+        print(str(len(divs)) + "==============len(divs)=============")
+        if len(divs) < 1:
+            return
+        org_div = divs[2]
+        ths_text = org_div.xpath('.//table[@class="table table-bordered"]/thead/tr/th/text()').extract()
+        for th in ths_text:
+            org_key.append(th)
+        tbodys = org_div.xpath('.//table[@class="table table-bordered"]/tbody')
+        if len(tbodys) < 1:
+            return
+        trs = tbodys[0].xpath('./tr')
+        for tr in trs:
+            org_value = []
+            for td in tr.xpath('./td'):
+                td_text = td.xpath('./text()').extract_first()
+                if td_text is None:
+                    td_text = td.xpath('./a/text()').extract_first()
+                    if td_text is None:
+                        td_text = td.xpath('./span/text()').extract_first()
+                        if not td_text.strip():
+                            td_text = ''
+
+                org_value.append(td_text)
+
+            org_info.append(dict(zip(org_key, org_value)))
+
         yield {
             "company_name": company_name,
             "base_info": base_info,
-            "gd_info": gd_info
+            "gd_info": gd_info,
+            "main_person_info": main_person_info,
+            "org_info": org_info
         }
