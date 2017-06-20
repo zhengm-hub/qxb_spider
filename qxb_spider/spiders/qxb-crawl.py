@@ -19,7 +19,7 @@ class QxbCrawl(scrapy.Spider):
         for url in list_page_url:
             if url == '/search/prov/AH':
                 list_page_url_ah = url
-        if list_page_url_ah is not None:
+        if (list_page_url_ah is not None) or (list_page_url_ah.strip()):
             print("list page url is:" + response.urljoin(list_page_url_ah) + "======================================")
             yield scrapy.Request(response.urljoin(list_page_url_ah), cookies=self.cookie, callback=self.parse_list)
 
@@ -52,10 +52,11 @@ class QxbCrawl(scrapy.Spider):
             if index % 2 == 0:
                 base_info_key.append(td_text)
             else:
-                if not td_text.strip():
-                    base_info_value.append(td.xpath('./a/text()').extract_first())
-                else:
-                    base_info_value.append(td_text)
+                if (td_text is None) or (not td_text.strip()):
+                    td_text = td.xpath('./a/text()').extract_first()
+                    if (td_text is None) or (not td_text.strip()):
+                        td_text = ''
+                base_info_value.append(td_text)
         base_info = dict(zip(base_info_key, base_info_value))
 
         # 股东信息
@@ -74,16 +75,13 @@ class QxbCrawl(scrapy.Spider):
             gd_value = []
             for td in tr.xpath('./td'):
                 td_text = td.xpath('./text()').extract_first()
-                if td_text is None:
-                    ran = td.xpath('./a/span/text()').extract_first()
-                    if ran is None:
-                        ran2 = td.xpath('./div/span//text()').extract()
-                        gd_value.append(ran2)
-                    else:
-                        gd_value.append(ran)
-                else:
-                    gd_value.append(td_text)
-
+                if (td_text is None) or (not td_text.strip()):
+                    td_text = td.xpath('./a/span/text()').extract_first()
+                    if (td_text is None) or (not td_text.strip()):
+                        td_text = td.xpath('./div/span//text()').extract()
+                        if td_text is None:
+                            td_text = ''
+                gd_value.append(td_text)
             gd_info.append(dict(zip(gd_key, gd_value)))
 
         # 主要人员
@@ -122,13 +120,12 @@ class QxbCrawl(scrapy.Spider):
             org_value = []
             for td in tr.xpath('./td'):
                 td_text = td.xpath('./text()').extract_first()
-                if td_text is None:
+                if (td_text is None) or (not td_text.strip()):
                     td_text = td.xpath('./a/text()').extract_first()
-                    if td_text is None:
+                    if (td_text is None) or (not td_text.strip()):
                         td_text = td.xpath('./span/text()').extract_first()
-                        if not td_text.strip():
+                        if (td_text is None) or (not td_text.strip()):
                             td_text = ''
-
                 org_value.append(td_text)
 
             org_info.append(dict(zip(org_key, org_value)))
