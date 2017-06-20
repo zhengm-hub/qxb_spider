@@ -12,6 +12,8 @@ class QxbCrawl(scrapy.Spider):
 
     cookie = settings['COOKIE']
 
+    # headers = settings['HEADER']
+
     def parse(self, response):
         print("first crawl start======================================")
         list_page_url = response.xpath(

@@ -90,4 +90,18 @@ ROBOTSTXT_OBEY = False
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
-COOKIE = {'_qddac': '3-4-1.h84bp.gzfk1s.j4541msi', 'tencentSig': '8738658304', 'aliyungf_tc': 'AQAAAAv/8B0MMQgAzr1a2tzv8oApiQ0f', '_qddamta_800809556': '3-0', 'sid': 's%3Aml66Mj8nAyPnfZawL66dxs1ZQ9cBwbiY.nq9n4b%2B7ZpJSxnvN5Ok2G63smtG6pXPjRlTuuOOCsEk', 'responseTimeline': '83', '_zg': '%7B%22uuid%22%3A%20%2215caad30d41afb-0b5a4fdaf26b42-30637509-13c680-15caad30d42296%22%2C%22sid%22%3A%201497935371.505%2C%22updated%22%3A%201497935517.346%2C%22info%22%3A%201497514577227%2C%22cuid%22%3A%20%221b121b06-d0fa-4b23-86e9-a8b271b511be%22%7D', 'Hm_lvt_52d64b8d3f6d42a2e416d59635df3f71': '1497693087,1497700731,1497847415,1497935371', 'Hm_lpvt_52d64b8d3f6d42a2e416d59635df3f71': '1497935518', '_qddaz': 'QD.plzkcz.co2edw.j3y5ij7b', '_qdda': '3-1.h84bp', '_qddab': '3-gzfk1s.j4541msi'}
+COOKIE = {'tencentSig': '8738658304', 'aliyungf_tc': 'AQAAAAv/8B0MMQgAzr1a2tzv8oApiQ0f', 'sid': 's%3Aml66Mj8nAyPnfZawL66dxs1ZQ9cBwbiY.nq9n4b%2B7ZpJSxnvN5Ok2G63smtG6pXPjRlTuuOOCsEk', '_qddamta_800809556': '3-0', 'responseTimeline': '14', '_qddac': '3-1.2lc9gi.ioj5l3.j457kezm', '_zg': '%7B%22uuid%22%3A%20%2215caad30d41afb-0b5a4fdaf26b42-30637509-13c680-15caad30d42296%22%2C%22sid%22%3A%201497941291.948%2C%22updated%22%3A%201497950668.778%2C%22info%22%3A%201497514577227%2C%22cuid%22%3A%20%221b121b06-d0fa-4b23-86e9-a8b271b511be%22%7D', 'Hm_lvt_52d64b8d3f6d42a2e416d59635df3f71': '1497693087,1497700731,1497847415,1497935371', 'Hm_lpvt_52d64b8d3f6d42a2e416d59635df3f71': '1497950669', '_qddaz': 'QD.plzkcz.co2edw.j3y5ij7b', '_qdda': '3-1.2lc9gi', '_qddab': '3-ioj5l3.j457kezm'}
+# HEADER = { \
+#     'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+#     'Accept-Encoding':'gzip, deflate, sdch',
+#     'Accept-Language':'zh-CN,zh;q=0.8',
+#     'Cache-Control':'no-cache',
+#     'Connection':'keep-alive',
+#     'Cookie':'_qddac=3-4-1.2lc9gi.ioj5l3.j457kezm; tencentSig=8738658304; aliyungf_tc=AQAAAAv/8B0MMQgAzr1a2tzv8oApiQ0f; sid=s%3Aml66Mj8nAyPnfZawL66dxs1ZQ9cBwbiY.nq9n4b%2B7ZpJSxnvN5Ok2G63smtG6pXPjRlTuuOOCsEk; _qddamta_800809556=3-0; responseTimeline=14; Hm_lvt_52d64b8d3f6d42a2e416d59635df3f71=1497693087,1497700731,1497847415,1497935371; Hm_lpvt_52d64b8d3f6d42a2e416d59635df3f71=1497950755; _zg=%7B%22uuid%22%3A%20%2215caad30d41afb-0b5a4fdaf26b42-30637509-13c680-15caad30d42296%22%2C%22sid%22%3A%201497941291.948%2C%22updated%22%3A%201497950754.851%2C%22info%22%3A%201497514577227%2C%22cuid%22%3A%20%221b121b06-d0fa-4b23-86e9-a8b271b511be%22%7D; _qddaz=QD.plzkcz.co2edw.j3y5ij7b; _qdda=3-1.2lc9gi; _qddab=3-ioj5l3.j457kezm',
+#     'Host':'www.qixin.com',
+#     'Pragma':'no-cache',
+#     'Referer':'http://www.qixin.com/search/prov/AH',
+#     'Upgrade-Insecure-Requests':'1',
+#     'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
+#     'X-Forwarded-For':['116.6.120.83','218.3.131.244','203.91.121.76']
+# }
